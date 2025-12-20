@@ -1100,7 +1100,7 @@ function submitForm(){
 
 async function callAPI(msg){
     const msgs=state.messages.map(m=>({role:m.role,content:m.content}));
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
+    const res=await fetch('https://yuca-api.vercel.app',{
         method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYSTEM_PROMPT,messages:msgs})
     });
