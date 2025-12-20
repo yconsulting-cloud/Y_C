@@ -211,6 +211,376 @@
         /* RESPONSIVE */
         @media(max-width:1024px){.hero__visual{display:none}.value__grid{grid-template-columns:repeat(2,1fr)}.features__grid{grid-template-columns:repeat(2,1fr)}.process__grid{grid-template-columns:repeat(2,1fr)}.process-step::after{display:none}.image-text{grid-template-columns:1fr;gap:var(--sp-10)}.image-text--reverse .image-text__content{order:1}.image-text--reverse .image-text__visual{order:2}}
         @media(max-width:768px){.nav__links,.nav__cta{display:none}.nav__burger{display:flex}.hero__stats{flex-direction:column;gap:var(--sp-4)}.value__grid,.features__grid,.process__grid,.services__grid{grid-template-columns:1fr}.contact__grid{grid-template-columns:1fr;gap:var(--sp-10)}.form__row{grid-template-columns:1fr}.footer__content{flex-direction:column;gap:var(--sp-6);text-align:center}.footer__bottom{flex-direction:column;gap:var(--sp-4);text-align:center}}
+    
+    
+        /* ========================================
+   CHATBOT STYLES
+======================================== */
+.yuca-chat-trigger {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9998;
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--c-primary) 0%, #1a1a2e 100%);
+    color: var(--c-accent);
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: yuca-pulse 3s ease-in-out infinite;
+}
+@keyframes yuca-pulse {
+    0%, 100% { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 0 rgba(0,217,255,0.4); }
+    50% { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 8px transparent; }
+}
+.yuca-chat-trigger:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0,217,255,0.4);
+}
+.yuca-chat-trigger svg { width: 28px; height: 28px; transition: transform 0.3s; }
+.yuca-chat-trigger[data-open="true"] svg.icon-chat { display: none; }
+.yuca-chat-trigger[data-open="false"] svg.icon-close { display: none; }
+.yuca-chat-trigger[data-open="true"] svg { transform: rotate(90deg); }
+.yuca-chat-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 20px;
+    height: 20px;
+    background: var(--c-accent);
+    color: var(--c-primary);
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+.yuca-chat-badge.show { display: flex; }
+.yuca-chat-window {
+    position: fixed;
+    bottom: 100px;
+    right: 24px;
+    z-index: 9999;
+    width: 400px;
+    max-width: calc(100vw - 48px);
+    height: 600px;
+    max-height: calc(100vh - 140px);
+    background: var(--c-bg-alt);
+    border-radius: 20px;
+    box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.yuca-chat-window.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+.yuca-chat-header {
+    background: linear-gradient(135deg, var(--c-primary) 0%, #1a1a2e 100%);
+    color: var(--c-text-inv);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+}
+.yuca-chat-avatar {
+    width: 48px;
+    height: 48px;
+    background: rgba(0,217,255,0.1);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--c-accent);
+}
+.yuca-chat-header-info h3 {
+    font-family: var(--ff-display);
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 3px;
+    color: var(--c-text-inv);
+}
+.yuca-chat-header-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+}
+.yuca-chat-header-status::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--c-success);
+    border-radius: 50%;
+    animation: yuca-blink 2s ease-in-out infinite;
+}
+@keyframes yuca-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+.yuca-chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+}
+.yuca-chat-messages::-webkit-scrollbar { width: 6px; }
+.yuca-chat-messages::-webkit-scrollbar-track { background: transparent; }
+.yuca-chat-messages::-webkit-scrollbar-thumb { background: var(--c-border); border-radius: 3px; }
+.yuca-message {
+    display: flex;
+    gap: 10px;
+    max-width: 88%;
+    animation: yuca-msgIn 0.3s ease-out;
+}
+@keyframes yuca-msgIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.yuca-message--bot { align-self: flex-start; }
+.yuca-message--user { align-self: flex-end; flex-direction: row-reverse; }
+.yuca-message--system { align-self: center; max-width: 95%; }
+.yuca-message-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+.yuca-message--bot .yuca-message-avatar {
+    background: rgba(0,217,255,0.1);
+    color: var(--c-accent);
+}
+.yuca-message--user .yuca-message-avatar {
+    background: var(--c-primary);
+    color: var(--c-text-inv);
+}
+.yuca-message-content {
+    padding: 14px 18px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+.yuca-message--bot .yuca-message-content {
+    background: var(--c-bg-alt);
+    color: var(--c-text);
+    border: 1px solid var(--c-border);
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.yuca-message--user .yuca-message-content {
+    background: linear-gradient(135deg, var(--c-primary) 0%, #1a1a2e 100%);
+    color: var(--c-text-inv);
+    border-bottom-right-radius: 4px;
+}
+.yuca-message--system .yuca-message-content {
+    background: #fef3c7;
+    border: 1px solid #fcd34d;
+    color: #92400e;
+    font-size: 13px;
+    text-align: center;
+    border-radius: 12px;
+}
+.yuca-message--system.error .yuca-message-content {
+    background: #fef2f2;
+    border-color: #fecaca;
+    color: #991b1b;
+}
+.yuca-message-content strong { color: var(--c-accent); font-weight: 600; }
+.yuca-typing {
+    display: flex;
+    gap: 5px;
+    padding: 14px 18px;
+    background: var(--c-bg-alt);
+    border: 1px solid var(--c-border);
+    border-radius: 18px;
+    border-bottom-left-radius: 4px;
+    width: fit-content;
+}
+.yuca-typing span {
+    width: 8px;
+    height: 8px;
+    background: var(--c-accent);
+    border-radius: 50%;
+    animation: yuca-typing 1.4s ease-in-out infinite;
+}
+.yuca-typing span:nth-child(2) { animation-delay: 0.2s; }
+.yuca-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes yuca-typing {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-8px); opacity: 1; }
+}
+.yuca-quick-replies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+.yuca-quick-reply {
+    padding: 10px 18px;
+    background: var(--c-bg-alt);
+    border: 1.5px solid var(--c-accent);
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--c-accent);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.yuca-quick-reply:hover {
+    background: var(--c-accent);
+    color: var(--c-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,217,255,0.4);
+}
+.yuca-chat-input {
+    padding: 16px 20px;
+    background: var(--c-bg-alt);
+    border-top: 1px solid var(--c-border);
+    display: flex;
+    gap: 12px;
+    flex-shrink: 0;
+}
+.yuca-chat-input input {
+    flex: 1;
+    padding: 14px 18px;
+    border: 1.5px solid var(--c-border);
+    border-radius: 14px;
+    font-family: var(--ff-body);
+    font-size: 14px;
+    color: var(--c-text);
+    background: #f8fafc;
+    transition: all 0.2s;
+}
+.yuca-chat-input input:focus {
+    outline: none;
+    border-color: var(--c-accent);
+    box-shadow: 0 0 0 4px rgba(0,217,255,0.1);
+    background: var(--c-bg-alt);
+}
+.yuca-chat-input input::placeholder { color: var(--c-text-sec); }
+.yuca-chat-input input:disabled { background: #f1f5f9; cursor: not-allowed; }
+.yuca-chat-send {
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 14px;
+    background: var(--c-accent);
+    color: var(--c-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+.yuca-chat-send:hover:not(:disabled) {
+    background: var(--c-accent-light);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,217,255,0.4);
+}
+.yuca-chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
+.yuca-chat-send svg { width: 22px; height: 22px; }
+.yuca-contact-form {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 1.5px solid var(--c-border);
+    border-radius: 16px;
+    padding: 18px;
+    margin-top: 10px;
+}
+.yuca-contact-form.disabled { opacity: 0.6; pointer-events: none; }
+.yuca-contact-form h4 {
+    font-family: var(--ff-display);
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: var(--c-text);
+}
+.yuca-cf-group { margin-bottom: 12px; }
+.yuca-cf-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--c-text-sec);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.yuca-cf-group input,
+.yuca-cf-group select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--c-border);
+    border-radius: 10px;
+    font-family: var(--ff-body);
+    font-size: 14px;
+    color: var(--c-text);
+    background: var(--c-bg-alt);
+    transition: all 0.2s;
+}
+.yuca-cf-group input:focus,
+.yuca-cf-group select:focus {
+    outline: none;
+    border-color: var(--c-accent);
+    box-shadow: 0 0 0 3px rgba(0,217,255,0.1);
+}
+.yuca-cf-group input.error { border-color: #ef4444; }
+.yuca-cf-error { color: #ef4444; font-size: 12px; margin-top: 4px; display: none; }
+.yuca-hp { position: absolute; left: -9999px; opacity: 0; height: 0; width: 0; }
+.yuca-cf-submit {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: var(--c-accent);
+    color: var(--c-primary);
+    font-family: var(--ff-body);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 4px;
+}
+.yuca-cf-submit:hover:not(:disabled) {
+    background: var(--c-accent-light);
+    transform: translateY(-2px);
+}
+.yuca-cf-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.yuca-cf-submit.success { background: var(--c-success); }
+@media (max-width: 480px) {
+    .yuca-chat-window {
+        bottom: 0; right: 0; left: 0;
+        width: 100%; max-width: 100%;
+        height: 100%; max-height: 100%;
+        border-radius: 0;
+    }
+    .yuca-chat-trigger { bottom: 16px; right: 16px; }
+}
+    
     </style>
 </head>
 <body>
@@ -565,6 +935,28 @@
             </div>
         </div>
     </footer>
+<!-- CHATBOT -->
+<button class="yuca-chat-trigger" id="chatTrigger" data-open="false" aria-label="Ouvrir le chat">
+    <svg class="icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    <span class="yuca-chat-badge" id="chatBadge">1</span>
+</button>
+<div class="yuca-chat-window" id="chatWindow">
+    <div class="yuca-chat-header">
+        <div class="yuca-chat-avatar">Y</div>
+        <div class="yuca-chat-header-info">
+            <h3>Yuca Assistant</h3>
+            <div class="yuca-chat-header-status">IA en ligne</div>
+        </div>
+    </div>
+    <div class="yuca-chat-messages" id="chatMessages"></div>
+    <div class="yuca-chat-input">
+        <input type="text" id="chatInput" placeholder="Posez votre question..." autocomplete="off">
+        <button class="yuca-chat-send" id="chatSend" aria-label="Envoyer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        </button>
+    </div>
+</div>
 
     <script>
     (function(){'use strict';
@@ -584,6 +976,150 @@
     document.getElementById('contactForm').addEventListener('submit',function(e){e.preventDefault();alert('Merci ! Je vous recontacte sous 24h.');this.reset()});
     document.getElementById('year').textContent=new Date().getFullYear();
     })();
+    
+// ========================================
+// CHATBOT IA YUCA
+// ========================================
+(function(){
+const YUCA_CONFIG={email:'yuca.consulting@gmail.com',phone:'06 XX XX XX XX'};
+const DISPOSABLE_EMAILS=['tempmail.com','temp-mail.org','guerrillamail.com','mailinator.com','throwaway.email','fakeinbox.com','10minutemail.com','trashmail.com','yopmail.com','yopmail.fr','jetable.org','maildrop.cc','getnada.com'];
+const SYSTEM_PROMPT=`Tu es l'assistant IA de Yuca, création de sites web avec IA pour entreprises locales.
+
+INFOS YUCA:
+- Essentiel (590€): Site one-page, design sur mesure, SEO, Google My Business, 7 jours, 1 mois support
+- Pro + IA (990€): Tout Essentiel + chatbot IA 24/7, réservation auto, multi-pages, notifications, 10 jours, 3 mois support
+
+AVANTAGES: Délai 7-10 jours (vs 4-8 sem ailleurs), paiement unique PAS d'abonnement, IA incluse, garantie satisfait
+
+PROCESS: 1.Échange découverte (30min gratuit) 2.Maquette & devis 3.Création 4.Mise en ligne
+
+Contact: ${YUCA_CONFIG.email} / ${YUCA_CONFIG.phone} / France entière
+
+COMPORTEMENT: Amical, concis (2-4 phrases), en français, emojis modérés. Après 3-4 échanges ou intérêt détecté, propose contact.
+
+Si intérêt fort (intéressé, devis, contact, prix), ajoute: [ACTION:CONTACT_FORM]
+Pour suggestions: [SUGGESTIONS:sugg1|sugg2|sugg3]`;
+
+const state={isOpen:false,messages:[],isLoading:false,hasWelcome:false,msgTimestamps:[],isLimited:false,limitEnd:0,formOpened:null,formSent:false};
+const trigger=document.getElementById('chatTrigger'),chatWin=document.getElementById('chatWindow'),msgBox=document.getElementById('chatMessages'),input=document.getElementById('chatInput'),sendBtn=document.getElementById('chatSend'),badge=document.getElementById('chatBadge');
+
+function checkLimit(){
+    const now=Date.now();
+    if(state.isLimited){if(now<state.limitEnd)return{ok:false,msg:`Trop de messages. Réessayez dans ${Math.ceil((state.limitEnd-now)/1000)}s.`};state.isLimited=false;state.msgTimestamps=[];}
+    state.msgTimestamps=state.msgTimestamps.filter(t=>now-t<60000);
+    if(state.msgTimestamps.length>=20){state.isLimited=true;state.limitEnd=now+300000;return{ok:false,msg:'Pause de 5 minutes.'};}
+    state.msgTimestamps.push(now);return{ok:true};
+}
+function isDisposable(e){const d=e.split('@')[1]?.toLowerCase();return DISPOSABLE_EMAILS.some(x=>d?.includes(x));}
+function validEmail(e){return/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);}
+function alreadySent(){try{return localStorage.getItem('yuca_sent')==='1';}catch{return state.formSent;}}
+function markSent(){state.formSent=true;try{localStorage.setItem('yuca_sent','1');}catch{}}
+function esc(t){const d=document.createElement('div');d.textContent=t;return d.innerHTML;}
+function fmt(t){return t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');}
+function scroll(){msgBox.scrollTop=msgBox.scrollHeight;}
+
+function toggleChat(){
+    state.isOpen=!state.isOpen;
+    trigger.dataset.open=state.isOpen;
+    chatWin.classList.toggle('open',state.isOpen);
+    badge.classList.remove('show');
+    if(state.isOpen&&!state.hasWelcome){state.hasWelcome=true;setTimeout(()=>{const h=new Date().getHours();addBot(`${h>=18?'Bonsoir':'Bonjour'} ! 👋 Je suis l'assistant Yuca. Comment puis-je vous aider ?`,['Je veux un site','Voir les tarifs','C\'est quoi Yuca ?']);},400);}
+    if(state.isOpen)setTimeout(()=>input.focus(),300);
+}
+
+function addBot(txt,sugg=null){
+    const div=document.createElement('div');div.className='yuca-message yuca-message--bot';
+    let h=`<div class="yuca-message-avatar">Y</div><div><div class="yuca-message-content">${fmt(txt)}</div>`;
+    if(sugg?.length){h+='<div class="yuca-quick-replies">';sugg.forEach(s=>{h+=`<button class="yuca-quick-reply" data-v="${esc(s)}">${esc(s)}</button>`;});h+='</div>';}
+    h+='</div>';div.innerHTML=h;msgBox.appendChild(div);scroll();
+    div.querySelectorAll('.yuca-quick-reply').forEach(b=>b.addEventListener('click',()=>send(b.dataset.v)));
+    state.messages.push({role:'assistant',content:txt});
+}
+function addUser(txt){
+    const div=document.createElement('div');div.className='yuca-message yuca-message--user';
+    div.innerHTML=`<div class="yuca-message-avatar">👤</div><div class="yuca-message-content">${esc(txt)}</div>`;
+    msgBox.appendChild(div);scroll();state.messages.push({role:'user',content:txt});
+}
+function addSys(txt,err=false){
+    const div=document.createElement('div');div.className=`yuca-message yuca-message--system ${err?'error':''}`;
+    div.innerHTML=`<div class="yuca-message-content">${txt}</div>`;msgBox.appendChild(div);scroll();
+}
+function showTyping(){
+    const div=document.createElement('div');div.className='yuca-message yuca-message--bot';div.id='typing';
+    div.innerHTML=`<div class="yuca-message-avatar">Y</div><div class="yuca-typing"><span></span><span></span><span></span></div>`;
+    msgBox.appendChild(div);scroll();
+}
+function hideTyping(){document.getElementById('typing')?.remove();}
+
+function addForm(){
+    if(alreadySent()){addBot(`Vous avez déjà envoyé une demande. Je vous recontacte bientôt !`,['Comment ça marche ?','Voir les tarifs']);return;}
+    state.formOpened=Date.now();
+    const div=document.createElement('div');div.className='yuca-message yuca-message--bot';
+    div.innerHTML=`<div class="yuca-message-avatar">Y</div><div>
+        <div class="yuca-contact-form" id="cForm">
+            <h4>📞 Demande de contact</h4>
+            <div class="yuca-hp"><input type="text" id="cfHp" tabindex="-1" autocomplete="off"></div>
+            <div class="yuca-cf-group"><label>Nom *</label><input type="text" id="cfName" placeholder="Votre nom"></div>
+            <div class="yuca-cf-group"><label>Email *</label><input type="email" id="cfEmail" placeholder="votre@email.com"><div class="yuca-cf-error" id="cfErr"></div></div>
+            <div class="yuca-cf-group"><label>Téléphone</label><input type="tel" id="cfPhone" placeholder="06 XX XX XX XX"></div>
+            <div class="yuca-cf-group"><label>Activité</label><select id="cfBiz"><option value="">Sélectionner...</option><option value="restaurant">Restaurant</option><option value="artisan">Artisan</option><option value="commerce">Commerce</option><option value="service">Service</option><option value="autre">Autre</option></select></div>
+            <button class="yuca-cf-submit" id="cfSend">Envoyer</button>
+        </div></div>`;
+    msgBox.appendChild(div);scroll();
+    document.getElementById('cfSend').addEventListener('click',submitForm);
+    document.getElementById('cfEmail').addEventListener('blur',function(){
+        const e=this.value.trim(),err=document.getElementById('cfErr');
+        if(e&&!validEmail(e)){this.classList.add('error');err.textContent='Email invalide';err.style.display='block';}
+        else if(isDisposable(e)){this.classList.add('error');err.textContent='Emails temporaires non acceptés';err.style.display='block';}
+        else{this.classList.remove('error');err.style.display='none';}
+    });
+}
+function submitForm(){
+    const hp=document.getElementById('cfHp').value,name=document.getElementById('cfName').value.trim(),email=document.getElementById('cfEmail').value.trim(),phone=document.getElementById('cfPhone').value.trim(),biz=document.getElementById('cfBiz').value,btn=document.getElementById('cfSend'),form=document.getElementById('cForm');
+    if(hp){btn.textContent='✓ Envoyé !';btn.classList.add('success');form.classList.add('disabled');return;}
+    if(state.formOpened&&Date.now()-state.formOpened<3000){addSys('Prenez le temps de remplir le formulaire.',true);return;}
+    if(alreadySent()){addSys('Vous avez déjà envoyé une demande.',true);return;}
+    if(!name||!email){addSys('Nom et email requis.',true);return;}
+    if(!validEmail(email)){document.getElementById('cfEmail').classList.add('error');document.getElementById('cfErr').textContent='Email invalide';document.getElementById('cfErr').style.display='block';return;}
+    if(isDisposable(email)){document.getElementById('cfEmail').classList.add('error');document.getElementById('cfErr').textContent='Emails temporaires non acceptés';document.getElementById('cfErr').style.display='block';return;}
+    markSent();
+    console.log('🎯 Lead Yuca:',{name,email,phone,biz,ts:new Date().toISOString()});
+    btn.disabled=true;btn.textContent='✓ Envoyé !';btn.classList.add('success');form.classList.add('disabled');
+    setTimeout(()=>addBot(`Merci ${name} ! 🎉 Je vous recontacte sous 24h.`,['Comment ça marche ?','Voir les tarifs']),500);
+}
+
+async function callAPI(msg){
+    const msgs=state.messages.map(m=>({role:m.role,content:m.content}));
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYSTEM_PROMPT,messages:msgs})
+    });
+    if(!res.ok)throw new Error('API error');
+    const data=await res.json();return data.content[0].text;
+}
+
+async function send(txt=null){
+    const content=txt||input.value.trim();if(!content||state.isLoading)return;
+    const limit=checkLimit();if(!limit.ok){addSys(limit.msg,true);return;}
+    input.value='';input.disabled=true;sendBtn.disabled=true;state.isLoading=true;
+    addUser(content);showTyping();
+    try{
+        let resp=await callAPI(content);hideTyping();
+        let sugg=null,showForm=false;
+        if(resp.includes('[ACTION:CONTACT_FORM]')){showForm=true;resp=resp.replace('[ACTION:CONTACT_FORM]','').trim();}
+        const m=resp.match(/\[SUGGESTIONS:(.+?)\]/);if(m){sugg=m[1].split('|').map(s=>s.trim());resp=resp.replace(m[0],'').trim();}
+        addBot(resp,sugg);
+        if(showForm)setTimeout(addForm,300);
+    }catch{hideTyping();addBot(`Désolé, problème technique. Contactez-moi à ${YUCA_CONFIG.email}`,['Réessayer','Voir les tarifs']);}
+    state.isLoading=false;input.disabled=false;sendBtn.disabled=false;input.focus();
+}
+
+trigger.addEventListener('click',toggleChat);
+sendBtn.addEventListener('click',()=>send());
+input.addEventListener('keypress',e=>{if(e.key==='Enter'){e.preventDefault();send();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&state.isOpen)toggleChat();});
+setTimeout(()=>{if(!state.isOpen)badge.classList.add('show');},3000);
+})();
     </script>
 </body>
 </html>
