@@ -980,6 +980,16 @@
 // ========================================
 // CHATBOT IA YUCA
 // ========================================
+
+// ========================================
+// OPEN AI
+// ========================================
+
+
+// ========================================
+// CLAUDE
+// ========================================
+
 (function(){
 const YUCA_CONFIG={email:'yuca.consulting@gmail.com',phone:'06 XX XX XX XX'};
 const DISPOSABLE_EMAILS=['tempmail.com','temp-mail.org','guerrillamail.com','mailinator.com','throwaway.email','fakeinbox.com','10minutemail.com','trashmail.com','yopmail.com','yopmail.fr','jetable.org','maildrop.cc','getnada.com'];
@@ -1120,6 +1130,8 @@ input.addEventListener('keypress',e=>{if(e.key==='Enter'){e.preventDefault();sen
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&state.isOpen)toggleChat();});
 setTimeout(()=>{if(!state.isOpen)badge.classList.add('show');},3000);
 })();
+
+
     </script>
 </body>
 </html>
