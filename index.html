@@ -1014,13 +1014,7 @@ const SYSTEM_PROMPT=`Tu es l'assistant IA de Yuca, création de sites web avec I
 3. Création (7-10 jours)
 4. Mise en ligne
 
-**Contact :**
-- Email : ${CONFIG.email}
-- Téléphone : ${CONFIG.phone}
-- Zone : Monde entier (travail à distance)
-
-**Clients cibles :** Restaurants, traiteurs, artisans (plombiers, électriciens...), commerces locaux, prestataires de services, professions libérales
-
+**Contact :** ${YUCA_CONFIG.email} / ${YUCA_CONFIG.phone} / Monde entier
 ## TON COMPORTEMENT
 
 1. Sois amical, professionnel et concis
@@ -1040,7 +1034,7 @@ Si intérêt fort détecté (mots: intéressé, je veux, devis, contact, combien
 [ACTION:CONTACT_FORM]
 
 Pour proposer des suggestions, ajoute à la FIN:
-[SUGGESTIONS:suggestion1|suggestion2|suggestion3]`;
+[SUGGESTIONS:sugg1|sugg2|sugg3]`;
 
 const state={isOpen:false,messages:[],isLoading:false,hasWelcome:false,msgTimestamps:[],isLimited:false,limitEnd:0,formOpened:null,formSent:false};
 const trigger=document.getElementById('chatTrigger'),chatWin=document.getElementById('chatWindow'),msgBox=document.getElementById('chatMessages'),input=document.getElementById('chatInput'),sendBtn=document.getElementById('chatSend'),badge=document.getElementById('chatBadge');
