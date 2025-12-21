@@ -1035,9 +1035,7 @@ Nous ne demandons ni ne stockons de données sensibles. Le client reste pleineme
 3. Création (7-10 jours)
 4. Mise en ligne
 
-Possibilité de planifier le point de découverte directement ici : <!-- Google Calendar Appointment Scheduling begin -->
-<iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1yxVNmv7Y5Fumhw9baDfNtO8IRSMdlJO2wvTflo2Ou-peWZ10pgkfo-cUWxCI9wyXl5c7aUakZ?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
-<!-- end Google Calendar Appointment Scheduling -->
+Possibilité de planifier le point de découverte directement ici : https://calendar.app.google/cBc4acBUJazfvtG17 
 
 Contact: ${YUCA_CONFIG.email} / ${YUCA_CONFIG.phone} / France entière
 
@@ -1051,7 +1049,7 @@ COMPORTEMENT: Amical, concis (2-4 phrases), en français, emojis modérés. Apr�
 2. Réponds TOUJOURS en français
 3. Utilise des emojis avec parcimonie (1-2 max par message)
 4. Mets en avant : rapidité (7-10j), pas d'abonnement, IA incluse
-5. Après 3-4 échanges OU si intérêt détecté, propose de prendre contact ou affiche ce lien cliquable : https://calendar.app.google/H5qWFkcK3ewyDAW16
+5. Après 3-4 échanges OU si intérêt détecté, propose de prendre contact ou affiche ce lien cliquable : https://calendar.app.google/cBc4acBUJazfvtG17
 6. Ne fais PAS de listes à puces longues, reste conversationnel
 7. Si question hors sujet, ramène poliment vers Yuca
 8. Ne mentionne JAMAIS de ville spécifique (on travaille partout en France)
@@ -1116,6 +1114,37 @@ function showTyping(){
     msgBox.appendChild(div);scroll();
 }
 function hideTyping(){document.getElementById('typing')?.remove();}
+
+
+function addBooking(){
+    const div = document.createElement('div');
+    div.className = 'yuca-message yuca-message--bot';
+
+    div.innerHTML = `
+      <div class="yuca-message-avatar">Y</div>
+      <div>
+        <div class="yuca-booking">
+          <h4>📅 Prendre rendez-vous</h4>
+          <p>
+            Choisissez un créneau disponible pour un échange découverte
+            (30 minutes, gratuit).
+          </p>
+          <a
+            href="https://calendar.app.google/cBc4acBUJazfvtG17"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="yuca-booking-btn"
+          >
+            Planifier un rendez-vous
+          </a>
+        </div>
+      </div>
+    `;
+
+    msgBox.appendChild(div);
+    scroll();
+}
+    
 
 function addForm(){
     if(alreadySent()){addBot(`Vous avez déjà envoyé une demande. Je vous recontacte bientôt !`,['Comment ça marche ?','Voir les tarifs']);return;}
