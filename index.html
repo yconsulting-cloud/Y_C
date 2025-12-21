@@ -1147,7 +1147,7 @@ function submitForm(){
     fetch('https://yuca-api.vercel.app/api/lead', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, email, phone, business, project, source: 'chatbot' })
+    body: JSON.stringify({ name, email, phone, business: project, source: 'chatbot' })
 });
     btn.disabled=true;btn.textContent='✓ Envoyé !';btn.classList.add('success');form.classList.add('disabled');
     setTimeout(()=>addBot(`Merci ${name} ! 🎉 Je vous recontacte sous 24h.`,['Comment ça marche ?','Voir les tarifs']),500);
