@@ -1035,7 +1035,23 @@ Nous ne demandons ni ne stockons de données sensibles. Le client reste pleineme
 3. Création (7-10 jours)
 4. Mise en ligne
 
-Possibilité de planifier le point de découverte directement via le chat : Si l’utilisateur souhaite prendre rendez-vous, affiche ce lien cliquable : https://calendar.app.google/H5qWFkcK3ewyDAW16 
+Possibilité de planifier le point de découverte directement ici : 
+
+</script>
+<script>
+(function() {
+  var target = document.currentScript;
+  window.addEventListener('load', function() {
+    calendar.schedulingButton.load({
+      url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ1yxVNmv7Y5Fumhw9baDfNtO8IRSMdlJO2wvTflo2Ou-peWZ10pgkfo-cUWxCI9wyXl5c7aUakZ?gv=true',
+      color: '#039BE5',
+      label: 'Book an appointment',
+      target,
+    });
+  });
+})();
+</script>
+<!-- end Google Calendar Appointment Scheduling -->
 Contact: ${YUCA_CONFIG.email} / ${YUCA_CONFIG.phone} / France entière
 
 COMPORTEMENT: Amical, concis (2-4 phrases), en français, emojis modérés. Après 3-4 échanges ou intérêt détecté, propose de prendre rendez-vous.
