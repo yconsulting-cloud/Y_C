@@ -869,7 +869,7 @@
             <div class="cta-section__bg"></div>
             <div class="cta-section__glow"></div>
             <div class="cta-section__content" data-reveal>
-                <h2 class="cta-section__title">Prêt à passer au digital ?</h2>
+                <h2 class="cta-section__title">Prêt à optimiser votre présence digitale ?</h2>
                 <p class="cta-section__subtitle">Échange gratuit de 30 min. On parle de votre projet, sans jargon.</p>
                 <a href="#contact" class="cta-section__btn">Réserver mon appel <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
             </div>
@@ -1035,10 +1035,10 @@ Nous ne demandons ni ne stockons de données sensibles. Le client reste pleineme
 3. Création (7-10 jours)
 4. Mise en ligne
 
+Possibilité de planifier le point de découverte directement via le chat : Si l’utilisateur souhaite prendre rendez-vous, affiche ce lien cliquable : https://calendar.app.google/H5qWFkcK3ewyDAW16 
 Contact: ${YUCA_CONFIG.email} / ${YUCA_CONFIG.phone} / France entière
-Planification de point : Si l’utilisateur souhaite prendre rendez-vous, affiche ce lien cliquable : [Prendre rendez-vous] https://calendly.com/ton-compte/rendez-vous https://calendar.app.google/H5qWFkcK3ewyDAW16 .
 
-COMPORTEMENT: Amical, concis (2-4 phrases), en français, emojis modérés. Après 3-4 échanges ou intérêt détecté, propose contact.
+COMPORTEMENT: Amical, concis (2-4 phrases), en français, emojis modérés. Après 3-4 échanges ou intérêt détecté, propose de prendre rendez-vous.
 
 **Clients cibles :** Restaurants, traiteurs, artisans (plombiers, électriciens...), commerces locaux, prestataires de services, professions libérales
 
@@ -1048,7 +1048,7 @@ COMPORTEMENT: Amical, concis (2-4 phrases), en français, emojis modérés. Apr�
 2. Réponds TOUJOURS en français
 3. Utilise des emojis avec parcimonie (1-2 max par message)
 4. Mets en avant : rapidité (7-10j), pas d'abonnement, IA incluse
-5. Après 3-4 échanges OU si intérêt détecté, propose de prendre contact ou affiche ce lien cliquable : [Prendre rendez-vous] https://calendly.com/ton-compte/rendez-vous https://calendar.app.google/H5qWFkcK3ewyDAW16
+5. Après 3-4 échanges OU si intérêt détecté, propose de prendre contact ou affiche ce lien cliquable : https://calendar.app.google/H5qWFkcK3ewyDAW16
 6. Ne fais PAS de listes à puces longues, reste conversationnel
 7. Si question hors sujet, ramène poliment vers Yuca
 8. Ne mentionne JAMAIS de ville spécifique (on travaille partout en France)
@@ -1183,8 +1183,6 @@ input.addEventListener('keypress',e=>{if(e.key==='Enter'){e.preventDefault();sen
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&state.isOpen)toggleChat();});
 setTimeout(()=>{if(!state.isOpen)badge.classList.add('show');},3000);
 })();
-
-
     </script>
 </body>
 </html>
