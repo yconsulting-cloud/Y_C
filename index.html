@@ -1123,7 +1123,7 @@ function addForm(){
             <div class="yuca-cf-group"><label>Nom *</label><input type="text" id="cfName" placeholder="Votre nom"></div>
             <div class="yuca-cf-group"><label>Email *</label><input type="email" id="cfEmail" placeholder="votre@email.com"><div class="yuca-cf-error" id="cfErr"></div></div>
             <div class="yuca-cf-group"><label>Téléphone</label><input type="tel" id="cfPhone" placeholder="06 XX XX XX XX"></div>
-            <div class="yuca-cf-group"><label>Activité</label><select id="cfBusiness"><option value="">Sélectionner...</option><option value="restaurant">Restaurant</option><option value="artisan">Artisan</option><option value="commerce">Commerce</option><option value="service">Service</option><option value="autre">Autre</option></select></div>
+            <div class="yuca-cf-group"><label>Activité</label><select id="cfBiz"><option value="">Sélectionner...</option><option value="restaurant">Restaurant</option><option value="artisan">Artisan</option><option value="commerce">Commerce</option><option value="service">Service</option><option value="autre">Autre</option></select></div>
             <button class="yuca-cf-submit" id="cfSend">Envoyer</button>
         </div></div>`;
     msgBox.appendChild(div);scroll();
@@ -1136,7 +1136,7 @@ function addForm(){
     });
 }
 function submitForm(){
-    const hp=document.getElementById('cfHp').value,name=document.getElementById('cfName').value.trim(),email=document.getElementById('cfEmail').value.trim(),phone=document.getElementById('cfPhone').value.trim(),business=document.getElementById('cfbusiness').value,btn=document.getElementById('cfSend'),form=document.getElementById('cForm');
+    const hp=document.getElementById('cfHp').value,name=document.getElementById('cfName').value.trim(),email=document.getElementById('cfEmail').value.trim(),phone=document.getElementById('cfPhone').value.trim(),biz=document.getElementById('cfBiz').value,btn=document.getElementById('cfSend'),form=document.getElementById('cForm');
     if(hp){btn.textContent='✓ Envoyé !';btn.classList.add('success');form.classList.add('disabled');return;}
     if(state.formOpened&&Date.now()-state.formOpened<3000){addSys('Prenez le temps de remplir le formulaire.',true);return;}
     if(alreadySent()){addSys('Vous avez déjà envoyé une demande.',true);return;}
@@ -1147,7 +1147,7 @@ function submitForm(){
     fetch('https://yuca-api.vercel.app/api/lead', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, email, phone, business, project:'chatbot', source: 'chatbot' })
+    body: JSON.stringify({ name, email, phone, business: biz, project:'chatbot', source: 'chatbot' })
 });
     btn.disabled=true;btn.textContent='✓ Envoyé !';btn.classList.add('success');form.classList.add('disabled');
     setTimeout(()=>addBot(`Merci ${name} ! 🎉 Je vous recontacte sous 24h.`,['Comment ça marche ?','Voir les tarifs']),500);
